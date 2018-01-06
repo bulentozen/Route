@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <!--<link href="../../Content/bootstrap.css" rel="stylesheet" />
+        <link href="../../Content/MyCSS.css" rel="stylesheet" />
+        <script src="../../Scripts/jquery-3.2.1.min.js"></script>
+        <script src="../../Scripts/angular.js"></script>
+        <script src="../../Scripts/bootstrap.js"></script>
+    <script src="../../Scripts/dirPaginationJS.js"></script>
+        <script src="productsJS.js"></script>-->
+</head>
+<body>
+    <div class="container" ng-controller="productsController" ng-init="GetAllproducts()">
+        <!--{{plist}}-->
+        <table class="table table-hover table table-responsive">
+            <thead>
+                <tr class="Satilmayan">
+                    <th>Product Id</th>
+                    <th>Product Name</th>
+                    <th>Quantity Per unit</th>
+                    <th>Discontinued</th>
+                    <th>Unit Price </th>
+                    <th>Delete </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--<tr ng-repeat="item in products">-->
+                <tr dir-paginate="item in plist|itemsPerPage:7">
+                    <td><a href="" ng-click="GetByProductID(item.ProductID)"> {{item.ProductID}}</a></td>
+                    <td>{{item.ProductName}}</td>
+                    <td>{{item.QuantityPerUnit}}</td>
+                    <td ng-if="item.Discontinued==1" class="Satilmayan">{{item.Discontinued}}</td>
+                    <td ng-if="item.Discontinued==0" class="Satilan">{{item.Discontinued}}</td>
+                    <td>{{item.UnitPrice}}</td>
+                    <td>
+                        <span class="btn btn-danger glyphicon glyphicon-remove" ng-click="DeleteByProductID(item.ProductID)">
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <strong>{{Msg}}</strong>
+        <dir-pagination-controls>
+            max-size"3"
+            direction-links ="true"
+            boundary-links = "true"
+        </dir-pagination-controls>
+        <table class="table table-bordered" width="100">
+            <tr>
+                <td>Product Name</td>
+                <td><input type="text" ng-model="product.ProductName" /></td>
+            </tr>
+            <tr>
+                <td>Quantity  Per Unit</td>
+                <td><input type="text" ng-model="product.QuantityPerUnit" /></td>
+            </tr>
+            <tr>
+                <td>Unit Price</td>
+                <td><input type="text" ng-model="product.UnitPrice" /></td>
+            </tr>
+            <tr>
+                <td>Discontinued</td>
+                <td><input type="checkbox" ng-model="product.Discontinued" /></td>
+            </tr>
+            <tr>
+
+                <td>Categories</td>
+
+                <td>
+                    <!--<select ng-model="product.CategoryID ">
+                    <option ng-repeat="item in clist" value="{{item.CategoryID}}" >{{item.CategoryName}}</option>
+                </select>
+                {{product.CategoryID}}
+                <br />-->
+                    <!--<select ng-model="item"   ng-options="item.CategoryID as item.CategoryName for item in clist" ></select>
+                {{c}}
+                <br />-->
+                    <select ng-init="product.CategoryID = options[0]" ng-model="product.CategoryID" ng-options="item.CategoryID as item.CategoryName for item in clist"></select>
+                    {{product.CategoryID}}
+                </td>
+            </tr>
+            <tr>
+                <td>Supplier</td>
+                <td>
+                    <select ng-init="product.SupplierID = options[0]" ng-model="product.SupplierID" ng-options="item.SupplierID as item.CompanyName for item in slist"></select>
+                    {{product.SupplierID}}
+                </td>
+            </tr>
+            <tr>
+                <td><input type="button" ng-click="AddProduct(product)" class="btn btn-info" value="Yeni Kayıt" /> </td>
+                <td><input type="button" ng-click="UpdateProduct(product)" class="btn btn-warning" value="Güncelle" /></td>
+            </tr>
+        </table>
+        <ul>
+            <li ng-repeat="m in errorMsg">{{m}}</li>
+        </ul>
+    </div>
+</body>
+</html>

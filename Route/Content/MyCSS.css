@@ -1,0 +1,10 @@
+﻿.Satilmayan {
+    background-color: red;
+    color: white;
+    font-style: oblique;
+}
+
+.Satilan {
+    color: black;
+    font-style: oblique;
+}
